@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab; 
-    [SerializeField] private List<Transform> spawnPoints;
+    [SerializeField] private Transform _enemyPrefab;
+    [SerializeField] private List<Transform> _spawnPoints;
 
-    [SerializeField] private float spawnInterval = 2.0f; 
+    [SerializeField] private float _spawnInterval = 2.0f;
 
     private void Start()
     {
@@ -16,18 +16,20 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        WaitForSeconds wait = new WaitForSeconds(_spawnInterval);
+
         while (true)
         {
-            int randomIndex = Random.Range(0, spawnPoints.Count);
-            Transform spawnPoint = spawnPoints[randomIndex];
+            int randomIndex = Random.Range(0, _spawnPoints.Count);
+            Transform spawnPoint = _spawnPoints[randomIndex];
 
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject enemy = Instantiate(_enemyPrefab.gameObject, spawnPoint.position, spawnPoint.rotation);
 
             EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
 
             enemyMovement.SetDirection(spawnPoint.forward);
 
-            yield return new WaitForSeconds(spawnInterval);
+            yield return wait;
         }
     }
 }
