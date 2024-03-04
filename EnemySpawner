@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Transform _enemyPrefab;
+    [SerializeField] private EnemyMovement _enemyPrefab;
     [SerializeField] private List<Transform> _spawnPoints;
 
     [SerializeField] private float _spawnInterval = 2.0f;
